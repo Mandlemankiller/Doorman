@@ -1,0 +1,8 @@
+main: cz.jeme.programu.trafficmessager.TrafficMessager
+name: TrafficMessager
+version: 1.0
+api-version: 1.19
+author: XD_CZ
+description: Allows you to change the join and leave messages
+website: programu.jeme.cz
+prefix: TrafficMessager
