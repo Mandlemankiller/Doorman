@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
 <project name="Doorman" default="makejar" basedir=".">
-=======
-<project name="TrafficMessager" default="makejar" basedir=".">
->>>>>>> branch 'master' of https://github.com/Mandlemankiller/Doorman.git
     <target name="makejar" description="Create a jar for the project">
         <mkdir dir="target"></mkdir>
         <jar destfile="target/${ant.project.name}.jar">
