@@ -1,0 +1,15 @@
+main: cz.jeme.programu.doorman.Doorman
+name: Doorman
+version: 1.0
+api-version: 1.19
+author: XD_CZ
+description: Allows you to change the join and leave messages
+website: programu.jeme.cz
+prefix: Doorman
+commands:
+    doorman:
+      description: Main command for operating with Doorman plugin
+      usage: "Usage: TODO"
+      permission: doorman.doorman
+      permission-message: "No permission! Ask the admin to grant it."
+      aliases: [doma]
