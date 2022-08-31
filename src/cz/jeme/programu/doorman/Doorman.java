@@ -45,6 +45,7 @@ public class Doorman extends JavaPlugin implements Listener {
 	private ConfigurationSection section = configFileYaml.getConfigurationSection(SECTION_NAME);
 
 	private static final String PLUGIN_PREFIX = ChatColor.GOLD + "Doorman: " + ChatColor.AQUA;
+	public static final String PLAYERNAME_VAR = "{PLAYERNAME}";
 
 	{
 		CORRECT_ARGS.put("reload", "reload");
@@ -82,7 +83,7 @@ public class Doorman extends JavaPlugin implements Listener {
 		}
 		if (command.getName().equalsIgnoreCase("doorman")) { // When command called
 			if (args.length < 1) { // When no arguments, print usage
-				sender.sendMessage(PLUGIN_PREFIX + "\n/trme reloadconfig\n/trme setjoinmessage\n/trme setleavemessage");
+				sender.sendMessage(PLUGIN_PREFIX + "\n/doorman reloadconfig\n/doorman setjoinmessage\n/doorman setleavemessage");
 				return true;
 			}
 			if (args[0].equals(CORRECT_ARGS.get("reload"))) { // Reload config
@@ -99,7 +100,7 @@ public class Doorman extends JavaPlugin implements Listener {
 			} else if (args[0].equals(CORRECT_ARGS.get("setJoin"))) { // Set join message
 				if (args.length < 2) { // Not enough arguments
 					sender.sendMessage(PLUGIN_PREFIX + ChatColor.RED + "This action reqiuires more arguments!\n"
-							+ PLUGIN_PREFIX + "Usage: /trme " + CORRECT_ARGS.get(3) + " <your join message>");
+							+ PLUGIN_PREFIX + "Usage: /doorman " + CORRECT_ARGS.get("setJoin") + " <your join message>");
 					return true;
 				}
 				StringBuffer message = new StringBuffer(10); // StringBuffer for all arguments except the first one
@@ -113,7 +114,7 @@ public class Doorman extends JavaPlugin implements Listener {
 				return true;
 			}
 		}
-		sender.sendMessage(ChatColor.DARK_RED.toString() + ChatColor.BOLD.toString() + "WHOPS! " + ChatColor.RED
+		sender.sendMessage(ChatColor.DARK_RED.toString() + ChatColor.BOLD.toString() + "WHOOPS! " + ChatColor.RED
 				+ "Unexpected end of process:");
 		sender.sendMessage(ChatColor.BLUE + args[0]);
 		return true;
@@ -130,9 +131,9 @@ public class Doorman extends JavaPlugin implements Listener {
 	}
 
 	private void getJoinMessage(CommandSender sender, Player player) {
-		sender.sendMessage(ChatColor.AQUA + "Your join message is curently set to:\n");
+		sender.sendMessage(ChatColor.AQUA + "Your join message is curently set to:");
 		if (player == null) {
-			sender.sendMessage(renderMessage(player, joinMessage));
+			sender.sendMessage(joinMessage);
 		} else {
 			TextComponent tc = new TextComponent();
 			tc.setText(joinMessage);
@@ -153,9 +154,9 @@ public class Doorman extends JavaPlugin implements Listener {
 	}
 
 	private void getLeaveMessage(CommandSender sender, Player player) {
-		sender.sendMessage(ChatColor.AQUA + "Your leave message is curently set to:\n");
+		sender.sendMessage(ChatColor.AQUA + "Your leave message is curently set to:");
 		if (player == null) {
-			sender.sendMessage(renderMessage(player, leaveMessage));
+			sender.sendMessage(leaveMessage);
 		} else {
 			TextComponent tc = new TextComponent();
 			tc.setText(leaveMessage);
@@ -181,8 +182,8 @@ public class Doorman extends JavaPlugin implements Listener {
 		}
 		Set<String> sectionKeys = section.getKeys(false);
 		if (sectionKeys.size() == 0) {
-			section.set(JOIN_MESSAGE_KEY, "&6{PLAYERNAME} &ejoined the game");
-			section.set(LEAVE_MESSAGE_KEY, "&6{PLAYERNAME} &eleft the game");
+			section.set(JOIN_MESSAGE_KEY, "&6" + PLAYERNAME_VAR + " &ejoined the game");
+			section.set(LEAVE_MESSAGE_KEY, "&6" + PLAYERNAME_VAR + " &eleft the game");
 		}
 		joinMessage = section.getString("Join Message").replace('§', '&');
 		leaveMessage = section.getString("Leave Message").replace('§', '&');
@@ -206,9 +207,9 @@ public class Doorman extends JavaPlugin implements Listener {
 		String replacedPlayerName = null;
 		if (player != null) {
 			playerName = player.getName();
-			replacedPlayerName = (msg.replaceAll("\\{PLAYERNAME\\}", playerName));
+			replacedPlayerName = (msg.replace(PLAYERNAME_VAR, playerName));
 		} else {
-			replacedPlayerName = (msg.replaceAll("\\{PLAYERNAME\\}", "Steve"));
+			replacedPlayerName = (msg.replace(PLAYERNAME_VAR, "Player"));
 		}
 		String colorsTranslated = ChatColor.translateAlternateColorCodes('&', replacedPlayerName);
 		return colorsTranslated;
