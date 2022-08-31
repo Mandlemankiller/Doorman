@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 main: cz.jeme.programu.doorman.Doorman
 name: Doorman
 version: 1.0
@@ -13,3 +14,13 @@ commands:
       permission: doorman.doorman
       permission-message: "No permission! Ask the admin to grant it."
       aliases: [doma]
+=======
+main: cz.jeme.programu.trafficmessager.TrafficMessager
+name: TrafficMessager
+version: 1.0
+api-version: 1.19
+author: XD_CZ
+description: Allows you to change the join and leave messages
+website: programu.jeme.cz
+prefix: TrafficMessager
+>>>>>>> branch 'master' of https://github.com/Mandlemankiller/Doorman.git

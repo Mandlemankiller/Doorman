@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>Doorman</name>
+=======
+	<name>TrafficMessager</name>
+>>>>>>> branch 'master' of https://github.com/Mandlemankiller/Doorman.git
 	<comment></comment>
 	<projects>
 	</projects>
