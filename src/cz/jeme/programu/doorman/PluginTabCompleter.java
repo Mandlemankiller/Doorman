@@ -16,11 +16,18 @@ public class PluginTabCompleter implements TabCompleter {
 			return new ArrayList<String>(Doorman.CORRECT_ARGS.values());
 		}
 		List<String> setList = new ArrayList<String>();
-		if (((args[0].equals(Doorman.CORRECT_ARGS.get("setJoin")))
-				|| (args[0].equals(Doorman.CORRECT_ARGS.get("setLeave"))))
-				&& !Arrays.stream(args).anyMatch("{PLAYERNAME}"::equals)) {
-			setList.add("{PLAYERNAME}");
+
+		boolean setJoin = args[0].equals(Doorman.CORRECT_ARGS.get("setJoin"));
+		boolean setLeave = args[0].equals(Doorman.CORRECT_ARGS.get("setLeave"));
+		boolean playernameAlreadyUsed = Arrays.stream(args).anyMatch("{PLAYERNAME}"::equals);
+		boolean lastArgEmpty = args[args.length - 1].equals("");
+		boolean playernameStartsWithLastArg = Doorman.PLAYERNAME_VAR.toLowerCase()
+				.startsWith(args[args.length - 1].toLowerCase());
+
+		if ((setJoin || setLeave) && !playernameAlreadyUsed && (lastArgEmpty || playernameStartsWithLastArg)) {
+			setList.add(Doorman.PLAYERNAME_VAR);
 		}
+
 		return setList;
 	}
 
